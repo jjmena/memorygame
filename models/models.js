@@ -18,7 +18,8 @@ var Sequelize  = require("sequelize");
 // Usar BBDD SQLite
 var sequelize = new Sequelize (DB_name, user, pwd,
                     {dialect: dialect, protocol: protocol, storage: storage,
-                        omitNull: true, port: port, host:host
+                        omitNull: true, port: port, host:host,
+                        dialectOptions: { ssl: true }
                     });
 
 // Importar la definición de la tabla QUIZ en quiz.js
