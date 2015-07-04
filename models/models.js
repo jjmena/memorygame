@@ -10,13 +10,6 @@ var host  = (url[4] || null);
 var port  = (url[5] || null);
 var storage = process.env.DATASE_STORAGE;
 
-console.log('DB_name=' + url[6]);
-console.log('user=' + url[2]);
-console.log('pwd=' + url[3]);
-console.log('protocol/dialect=' + url[1]);
-console.log('host=' + url[5]);
-console.log('port=' + url[4]);
-
 // Cargar el modelo del ORM
 var Sequelize  = require("sequelize");
 
