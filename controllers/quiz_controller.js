@@ -18,8 +18,21 @@ exports.load = function (req,res,next,quizId) {
 
 // GET /quizes
 exports.index = function (req, res) {
-    models.Quiz.findAll().then(function(quizes){
-        res.render('quizes/index', {quizes: quizes});
+    
+    var busqueda = {};
+    var consulta = 'Introduzca un filtro de búsqueda';
+    if (req.query.search) {
+        consulta = req.query.search;
+        var cadena = '%' + req.query.search + '%';
+        // Además reemplazamos los espacios
+        cadena = cadena.replace(" ",'%');
+        // Se termina el objeto de búsqueda
+        busqueda = {where:["pregunta like ?", cadena],
+                    order: 'pregunta ASC'
+                    }
+    }
+    models.Quiz.findAll(busqueda).then(function(quizes){
+        res.render('quizes/index', {quizes: quizes, consulta: consulta});
     }).catch(function(error) {next(error);});
     
 } ;

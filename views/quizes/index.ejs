@@ -1,5 +1,19 @@
-<table>
-    <% var i; for (i=0; i < quizes.length; i++) { %>
-        <tr><td><a href="quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></td></tr>
-    <% } %>
-</table>
+<fieldset>
+    <legend>Búsqueda de preguntas</legend>
+        <form method="get" action="/quizes">
+            Búsqueda:
+            <input type="text" name="search" value="<%=consulta%>">
+            <input type="submit" value="Buscar">
+        </form>
+</fieldset>
+
+<br>
+
+<fieldset>
+    <legend>Listado de preguntas</legend>
+    <table>
+        <% var i; for (i=0; i < quizes.length; i++) { %>
+            <tr><td><center><a href="quizes/<%=quizes[i].id%>"><%=quizes[i].pregunta%></a></center></td></tr>
+        <% } %>
+    </table>
+</fieldset>
