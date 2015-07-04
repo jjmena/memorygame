@@ -6,8 +6,8 @@ var user = (url[2] || null);
 var pwd  = (url[3] || null);
 var protocol  = (url[1] || null);
 var dialect  = (url[1] || null);
-var host  = (url[5] || null);
-var port  = (url[4] || null);
+var host  = (url[4] || null);
+var port  = (url[5] || null);
 var storage = process.env.DATASE_STORAGE;
 
 console.log('DB_name=' + url[6]);
