@@ -55,3 +55,21 @@ exports.answer = function (req, res) {
 exports.author = function(req, res) {
   res.render('author',{autor:'Jacinto Jesús Mena Lomeña'});
 };
+
+// GET /quizes/new
+exports.new = function (req, res) {
+    var quiz = models.Quiz.build(
+            {pregunta: "Pregunta", respuesta: "Respuesta"}
+        );  
+    res.render("quizes/new", {quiz: quiz});
+};
+
+// POST /quizes/create
+exports.create = function (req, res) {
+  var quiz = models.Quiz.build(req.body.quiz)  ;
+  
+  // Guardar en DB los campos de pregunta y respuesta de quiz
+  quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+     res.redirect("/quizes");
+  }); // Redirección HTTP (URL relativo) lista de preguntas
+};
