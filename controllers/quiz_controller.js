@@ -39,6 +39,8 @@ exports.index = function (req, res) {
 
 // GET /quizes/:id
 exports.show = function (req, res) {
+    console.log('[JJMENA] Se invoca al SHOW');
+    
     res.render('quizes/show', {quiz: req.quiz, errors: []});
 } ;
 
@@ -76,6 +78,35 @@ exports.create = function (req, res) {
      }  else {
          // Guardar en DB los campos de pregunta y respuesta de quiz
         quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+            res.redirect("/quizes");
+        }); // Redirección HTTP (URL relativo) lista de preguntas
+    }
+    
+  });
+};
+
+// GET /quizes/:id/edit
+exports.edit = function (req, res) {
+    var quiz = req.quiz;
+    
+    res.render("quizes/edit", {quiz: quiz, errors: []});
+};
+
+// PUT /quizes/:id
+exports.update = function (req, res) {
+  console.log('[JJMENA] Se invoca al PUT');
+    
+  req.quiz.pregunta = req.body.quiz.pregunta;    
+  req.quiz.respuesta = req.body.quiz.respuesta;
+
+  req.quiz
+  .validate()
+  .then(function(err){
+     if  (err) {
+        res.render("quizes/edit", {quiz : req.quiz, errors: err.errors})    ;
+     }  else {
+         // Guardar en DB los campos de pregunta y respuesta de quiz
+        req.quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
             res.redirect("/quizes");
         }); // Redirección HTTP (URL relativo) lista de preguntas
     }
