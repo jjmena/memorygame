@@ -3,7 +3,7 @@
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
 <label for="tem" class="rem">Tematica:</label>
-<select name="quiz[tematica]" id="tem" value="<%=quiz.tematica%>">
+<select name="quiz[tematica]" id="tem">
     <option value="otro" <%=(quiz.tematica === 'otro') ? 'selected' : ''%> >Otro</option>
     <option value="humanidades" <%=(quiz.tematica === 'humanidades') ? 'selected' : ''%>>Humanidades</option>
     <option value="ocio" <%=(quiz.tematica === 'ocio') ? 'selected' : ''%>>Ocio</option>
