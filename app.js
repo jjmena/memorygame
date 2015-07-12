@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     
     // guardar path en session.redir para después del login
-    if (!req.path.match(/\/login|\/logout/)) {
+    if (!req.path.match(/\/login|\/logout|.css/)) {
         req.session.redir = req.path;
     }
     
