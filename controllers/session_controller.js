@@ -33,6 +33,7 @@ exports.create = function (req, res) {
         // Crear req.session.user y guardamos campos id y username
         // La sesion se define por la existencia de: req.session.user
         req.session.user = {id: user.id, username:user.username};
+        req.session.lastAccess = new Date().getTime();
         
         res.redirect(req.session.redir.toString()); // redireccion a path anterior a login
         
@@ -43,6 +44,7 @@ exports.create = function (req, res) {
 exports.destroy = function (req, res) {
   
   delete req.session.user;
+  delete  req.session.lastAccess;
   console.log("[JJMENA] Redireccion a: " + req.session.redir.toString() );
   res.redirect(req.session.redir.toString());  // redirect a path anterior a login
     

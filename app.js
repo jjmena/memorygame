@@ -36,11 +36,43 @@ app.use(function(req, res, next){
     if (!req.path.match(/\/login|\/logout|.css/)) {
         req.session.redir = req.path;
     }
+
+    next();
+    
+});
+
+app.use(function (req, res, next){
+  
+   var redirige = false;
+   if (!req.path.match(/\/login/)) {    
+       if (req.session.user && req.session.lastAccess) {
+           var actual = new Date();
+           if  (actual.getTime() - req.session.lastAccess > 2 * 60 * 1000) {
+               // Se destruye la sesión  y se redirige
+               delete req.session.user;
+               delete req.session.lastAccess;
+               redirige = true;
+           } else {
+               // Se actualiza
+               req.session.lastAccess = actual.getTime();
+           }
+        } else if (req.session.user){
+            req.session.lastAccess = new Date().getTime();
+        } 
+    } 
     
     // Hacer visible req.session en las vistas
     res.locals.session = req.session;
-    next();
     
+    // Si hay que hacer uan redirección se hace
+    if (redirige) {
+        res.render('sessions/new', {errors : []});
+        
+        // Se fuerza el retorno para no volver a escribir las cabeceras
+        return;
+    }
+    
+    next();
 });
 
 app.use('/', routes);
